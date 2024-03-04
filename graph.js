@@ -35,5 +35,4 @@ function highlightSat(visNodes, fom, formula) {
         else
             visNodes.update({ id: i, color: 'black' })
     }
-    return satNodes
 } 

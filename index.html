@@ -4,6 +4,7 @@
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.js"></script>
   
   <link href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis-network.min.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="/style.css" />
 
   <style type="text/css">
     #mynetwork {
@@ -17,8 +18,11 @@
 
 <center><div id="mynetwork"></div></center>
 
+<div id="repl-1" class="repl"></div>
+
 <script type="text/javascript" src="/fol.js"></script>
 <script type="text/javascript" src="/graph.js"></script>
+<script type="text/javascript" src="/repl.js"></script>
 <script type="text/javascript">
   var numNodes = 10;
   var probEdge = 0.2;
@@ -46,8 +50,13 @@
     }
   };
   var network = new vis.Network(container, data, options);
-</script>
 
+  buildREPL(1, "Type first-order logic predicates to select graph nodes.", ">")
+  registerREPL((n, strin) => {
+    putLineToREPL(`> ${strin}`, n);
+    highlightSat(visNodes, fom, strin);
+  }, 1)
+</script>
 
 </body>
 </html>
