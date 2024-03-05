@@ -47,7 +47,7 @@ Try the following puzzles. For each puzzle, you should try to write a predicate 
 </ol>
 
 <script type="text/javascript" src="/fol.js"></script>
-<script type="text/javascript" src="/graph.js"></script>
+<script type="text/javascript" src="/mvc.js"></script>
 <script type="text/javascript" src="/repl.js"></script>
 <script type="text/javascript">
     m = new Model()
@@ -60,12 +60,12 @@ Try the following puzzles. For each puzzle, you should try to write a predicate 
     
     var levelsList = document.getElementById("levels-list");
     for (let n in levels) {
-        console.log(level);
         var level = levels[n];
         var levelElt = document.createElement("li");
         var clickable = document.createElement("a");
         var levelMarker = document.createElement("a");
-        levelMarker.textContent = "❓"
+        levelMarker.textContent = " ❓"
+        levelMarker.id = `level-marker-${n}`
         clickable.textContent = level.name;
         clickable.href = `javascript:c.runLevel(levels[${n}])`;
         levelElt.appendChild(clickable);
@@ -79,7 +79,6 @@ Try the following puzzles. For each puzzle, you should try to write a predicate 
             var done = c.tryPredicate(strin);
             if (done) {
                 putLineToREPL("You've solved this puzzle! Good job!", n)
-                markLevelCompleted(c.model.level);
             }
     }, 1)
 </script>

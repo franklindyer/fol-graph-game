@@ -148,6 +148,11 @@ class View {
         }
     }
 
+    markLevelCompleted(levelNum) {
+        var levelMarker = document.getElementById(`level-marker-${levelNum}`);
+        levelMarker.innerHTML = " ✅";
+    } 
+
 }
 
 class Controller {
@@ -174,7 +179,9 @@ class Controller {
     tryPredicate(pred) {
         var sel = this.model.getSat(pred);
         this.view.highlightSelected(sel);
-        return this.model.level != -1 && sel.toString() === this.model.target.toString();
+        var complete = this.model.level != -1 && sel.toString() === this.model.target.toString();
+        if (complete) this.view.markLevelCompleted(this.model.level);
+        return complete
     }
 
 }
@@ -217,9 +224,3 @@ const levels = [
     }
 ]
 
-function markLevelCompleted(levelNum) {
-    console.log(`Level ${levelNum} completed!`);
-    console.log(`level-marker-${levelNum}`);
-    var levelMarker = document.getElementById(`level-marker-${levelNum}`);
-    levelMarker.innerHTML = "✅";
-} 
