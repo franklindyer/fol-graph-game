@@ -1,13 +1,15 @@
 <html>
 <head>
-  
+
+    <meta charset="utf-8">  
+
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.js"></script>
   
   <link href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis-network.min.css" rel="stylesheet" type="text/css" />
   <link rel="stylesheet" href="/style.css" />
 
   <style type="text/css">
-    #mynetwork {
+    #networkbox {
       width: 700px;
       height: 400px;
       border: 1px solid lightgray;
@@ -16,46 +18,70 @@
 </head>
 <body>
 
-<center><div id="mynetwork"></div></center>
+<h1>First-order logic for graphs</h1>
+
+<center><div id="networkbox"></div></center>
 
 <div id="repl-1" class="repl"></div>
+
+<p>Type in some expressions in first-order logic to select nodes of the graph that have different properties. The syntax is like this:</p>
+<ul>
+    <li><code>E</code> stands for "there exists".</li>
+    <li><code>A</code> stands for "for all".</li>
+    <li><code>y</code> is a free variable standing in for the selected nodes.</li>
+    <li><code>x0,...,x99</code> are variable names that you can use for bound variables.</li>
+    <li><code>&</code> means "and", <code>|</code> means "or" and <code>~</code> means "not".</li>
+    <li><code>eq(a,b)</code> means "<code>a</code> and <code>b</code> are equal."</li>
+    <li><code>R(a,b)</code> means "there is an arrow from <code>a</code> to <code>b</code>."</li>
+    <li>You can also use parentheses.</li>
+</ul>
+Here are some examples of predicates that you could try out:
+<ul>
+    <li><code>eq(y,y)</code> will just select all of the nodes, since every node equals itself!</li>
+    <li><code>Ex0 R(y,x0)</code> says "there exists some node that this node points to". So it will select all nodes that point to at least one other node.</li>
+    <li><code>R(y,y)</code> will select all of the nodes that have an arrow to themselves.</li>
+    <li><code>Ex0 Ex1 R(y,x0) & R(y,x1) & ~eq(x0,x1)</code> will select each node that points to <i>at least two different nodes</i>.</li>
+</ul>
+Try the following puzzles. For each puzzle, you should try to write a predicate that is satisfied <i>only by the blue nodes</i>.
+<ol id="levels-list">
+</ol>
 
 <script type="text/javascript" src="/fol.js"></script>
 <script type="text/javascript" src="/graph.js"></script>
 <script type="text/javascript" src="/repl.js"></script>
 <script type="text/javascript">
-  var numNodes = 10;
-  var probEdge = 0.2;
-  var edgePairList = erdosRenyi(numNodes, probEdge);
-  var edgesList = erdosRenyi(numNodes, probEdge);
-  var visNodes = new vis.DataSet(visNodesList(numNodes));
-  var visEdges = new vis.DataSet(visEdgesList(edgesList));
-  var fom = modelFromEdgeList(numNodes, edgesList);
-  fom.parser = fop;
-
-  // create a network
-  var container = document.getElementById('mynetwork');
-  var data = {
-    nodes: visNodes,
-    edges: visEdges
-  };
-  var options = {
-    edges : {
-      arrows: {
-        to: { enabled: true }
-      },
-      color: {
-        inherit: false
-      }
-    }
-  };
-  var network = new vis.Network(container, data, options);
-
-  buildREPL(1, "Type first-order logic predicates to select graph nodes.", ">")
-  registerREPL((n, strin) => {
-    putLineToREPL(`> ${strin}`, n);
-    highlightSat(visNodes, fom, strin);
-  }, 1)
+    m = new Model()
+    m.runRandomGraph(20, 0.1)
+    v = new View()
+    v.visNodesList(20)
+    v.visEdgesList(m.edglist)
+    c = new Controller(m, v)
+    c.randomize()
+    
+    var levelsList = document.getElementById("levels-list");
+    for (let n in levels) {
+        console.log(level);
+        var level = levels[n];
+        var levelElt = document.createElement("li");
+        var clickable = document.createElement("a");
+        var levelMarker = document.createElement("a");
+        levelMarker.textContent = "❓"
+        clickable.textContent = level.name;
+        clickable.href = `javascript:c.runLevel(levels[${n}])`;
+        levelElt.appendChild(clickable);
+        levelElt.appendChild(levelMarker);
+        levelsList.appendChild(levelElt)
+    } 
+       
+    buildREPL(1, "Type first-order logic predicates to select graph nodes.", ">")
+    registerREPL((n, strin) => {
+        putLineToREPL(`> ${strin}`, n);
+            var done = c.tryPredicate(strin);
+            if (done) {
+                putLineToREPL("You've solved this puzzle! Good job!", n)
+                markLevelCompleted(c.model.level);
+            }
+    }, 1)
 </script>
 
 </body>
