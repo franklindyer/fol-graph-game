@@ -97,7 +97,7 @@ class FirstOrderParser {
         throw new SyntaxError("Expected expression, but instead found " + this.unconsumed)
     }
 
-    mustParseFormula() {
+    mustParseFormula(withBinop = true) {
         // A formula can be a parenthesized formula...
         let fNode = undefined;
         let res = this.tryParseToken("(");
@@ -112,7 +112,15 @@ class FirstOrderParser {
             res = this.tryParseAnyToken(this.unConTokens);
             if (res != undefined) {
                 fNode = res;
-                fNode.children.push(this.mustParseFormula());
+                fNode.children.push(this.mustParseFormula(false));
+                if (withBinop) {
+                    res = this.tryParseAnyToken(this.binConTokens);
+                    if (res != undefined) {
+                        let fNode2 = res;
+                        fNode2.children = [fNode, this.mustParseFormula()];
+                        fNode = fNode2;
+                    }
+                }
             }
         }
 
@@ -124,7 +132,7 @@ class FirstOrderParser {
                 res = this.tryParseAnyToken(this.varTokens);
                 if (res == undefined)
                     throw new SyntaxError("Expected variable name after quantifier " + fNode.token);
-                fNode.children = [res, this.mustParseFormula()];
+                fNode.children = [res, this.mustParseFormula(false)];
             }
         }
 
@@ -148,11 +156,13 @@ class FirstOrderParser {
             throw new SyntaxError("Expected string starting with formula, but found " + this.unconsumed);
 
         // Optionally, the formula can be conjoined with others using binary connectives.
-        res = this.tryParseAnyToken(this.binConTokens);
-        if (res != undefined) {
-            let fNode2 = res;
-            fNode2.children = [fNode, this.mustParseFormula()];
-            fNode = fNode2;
+        if (withBinop) {
+            res = this.tryParseAnyToken(this.binConTokens);
+            if (res != undefined) {
+                let fNode2 = res;
+                fNode2.children = [fNode, this.mustParseFormula()];
+                fNode = fNode2;
+            }
         }
 
         return fNode

@@ -52,7 +52,6 @@ class Model {
         this.edglist = edgesList;
         this.fromEdgeList(numNodes, edgesList);
         this.fom.parser = this.fop;
-        this.level = level.num;
         this.target = level.target;
     }
 }
@@ -170,6 +169,7 @@ class Controller {
 
     runLevel(level) {
         this.model.runLevelGraph(level);
+        this.model.level = level.num;
         this.view.visNodesList(this.model.size);
         this.view.visEdgesList(this.model.edglist);
         this.view.render();
@@ -187,40 +187,47 @@ class Controller {
 }
 
 const levels = [
-    {   // Level 0
+    {
         num: 0,
         name: "Two nodes",
         nodes: 2,
         edges: [[0,1]],
         target: [0]
     },
-    {   // Level 1
+    {
         num: 1,
         name: "Lonely node",
         nodes: 5,
         edges: [[0,1],[1,0],[0,2],[2,0],[0,3],[3,0],[1,2],[2,1],[1,3],[3,1],[2,3],[3,2]],
         target: [4]
     },
-    {   // Level 2
+    {
         num: 2,
-        name: "Starfish",
-        nodes: 13,
-        edges: [[0,1],[1,2],[0,3],[3,4],[0,5],[5,6],[0,7],[7,8],[0,9],[9,10],[10,11],[11,12]],
-        target: [12]
-    },
-    {   // Level 3
-        num: 3,
         name: "Lollipop",
         nodes: 7,
         edges: [[0,1],[1,0],[1,2],[2,1],[2,3],[3,2],[3,4],[4,3],[4,5],[5,4],[5,0],[0,5],[3,6],[6,3]],
         target: [0]
     },
-    {   // Level 4
-        num: 4,
+    {
+        num: 3,
         name: "Triangle square",
         nodes: 7,
         edges: [[0,1],[1,2],[2,0],[3,4],[4,5],[5,6],[6,3]],
         target: [0,1,2]
+    },
+    {
+        num: 4,
+        name: "Taffy",
+        nodes: 9,
+        edges: [[0,1],[1,2],[2,3],[4,5],[5,6],[6,7],[7,8]],
+        target: [3]
+    },
+    {
+        num: 5,
+        name: "Tree",
+        nodes: 9,
+        edges: [[0,1],[0,2],[1,3],[1,4],[2,5],[2,6],[6,7],[6,8]],
+        target: [5]
     }
 ]
 
