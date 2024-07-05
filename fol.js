@@ -243,7 +243,7 @@ class FirstOrderModel {
         if (this.parser.qfrTokens.indexOf(fNode.token) > -1) {
             if (fNode.token === "A") {
                 for (let i = 0; i < this.universe.length; i++) {
-                    let augTable = table;
+                    let augTable = {...table};
                     augTable[fNode.children[0].token] = this.universe[i];
                     let truthVal = this.evaluateFormulaNodeInContext(fNode.children[1], augTable);
                     if (!truthVal) return false;
@@ -251,7 +251,7 @@ class FirstOrderModel {
                 return true;
             } else if (fNode.token === "E") {
                 for (let i = 0; i < this.universe.length; i++) {
-                    let augTable = table;
+                    let augTable = {...table};
                     augTable[fNode.children[0].token] = this.universe[i];
                     let truthVal = this.evaluateFormulaNodeInContext(fNode.children[1], augTable);
                     if (truthVal) return true;
