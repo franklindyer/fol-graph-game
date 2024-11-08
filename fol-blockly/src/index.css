@@ -38,3 +38,9 @@ code {
 #output {
   height: 50%;
 }
+
+#networkbox {
+  width: 95%;
+  height: 400px;
+  border: 1px solid lightgray;
+}

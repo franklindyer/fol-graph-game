@@ -1,5 +1,4 @@
 import * as Blockly from 'blockly';
-import * as FOL from '../../logic/fol';
 
 export const folGenerator = new Blockly.Generator('fol');
 
@@ -19,10 +18,14 @@ folGenerator.forBlock['points_to'] = function(block, generator) {
     return [`R(${generator.valueToCode(block,"SOURCE",Order.ATOMIC)},${generator.valueToCode(block,"TARGET",Order.ATOMIC)})`, Order.ATOMIC];
 };
 
+folGenerator.forBlock['eq'] = function(block, generator) {
+    return [`eq(${generator.valueToCode(block,"SOURCE",Order.ATOMIC)},${generator.valueToCode(block,"TARGET",Order.ATOMIC)})`, Order.ATOMIC];
+};
+
 folGenerator.forBlock['binary_op'] = function(block, generator) {
     var op_type = block.getFieldValue("OPERATION");
     var op_token = (op_type === "AND") ? '&' : '|';
-    return [`${op_token}(${generator.valueToCode(block,"OPERAND1",Order.ATOMIC)},${generator.valueToCode(block,"OPERAND2",Order.ATOMIC)})`, Order.ATOMIC];
+    return [`(${generator.valueToCode(block,"OPERAND1",Order.ATOMIC)}${op_token}${generator.valueToCode(block,"OPERAND2",Order.ATOMIC)})`, Order.ATOMIC];
 };
 
 folGenerator.forBlock['not'] = function(block, generator) {

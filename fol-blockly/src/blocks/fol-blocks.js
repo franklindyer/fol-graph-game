@@ -58,8 +58,27 @@ export const blocks = Blockly.common.createBlockDefinitionsFromJsonArray([{
   "colour": 230
 },
 {
+  "type": "eq",
+  "message0": "%1 = %2",
+  "args0": [
+    {
+        "type": "input_value",
+        "name": "LHS",
+        "check": "expr"
+    },
+    {
+        "type": "input_value",
+        "name": "RHS",
+        "check": "expr"
+    }
+  ],
+  "output": "bool",
+  "colour": 230,
+  "inputsInline": true
+},
+{
   "type": "points_to",
-  "message0": "%1 -> %2",
+  "message0": "%1↪%2",
   "args0": [
     {
         "type": "input_value",
@@ -74,18 +93,18 @@ export const blocks = Blockly.common.createBlockDefinitionsFromJsonArray([{
   ],
   "output": "bool",
   "colour": 230,
-  "inputsInline": true
+  "inputsInline": false
 },
 {
   "type": "quantifier",
-  "message0": "%1 node named %2\n%3",
+  "message0": "%1 %2 %3",
   "args0": [
     {
         "type": "field_dropdown",
         "name": "QUANTIFIER",
         "options": [
-            ["for any", "FORALL"],
-            ["exists a", "EXISTS"]
+            ["∀", "FORALL"],
+            ["∃", "EXISTS"]
         ]
     },
     {

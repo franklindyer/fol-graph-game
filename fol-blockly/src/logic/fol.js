@@ -1,5 +1,5 @@
 // For reference purposes only
-nodeTypes = [
+export const nodeTypes = [
     "VARIABLE",
     "FUNCTION",
     "RELATION",
@@ -18,14 +18,14 @@ function untilValid(ls, f) {
     return undefined
 }
 
-class FirstOrderNode {
+export class FirstOrderNode {
     constructor(token, children) {
         this.token = token;
         this.children = children;
     }
 }
 
-class FirstOrderParser {
+export class FirstOrderParser {
     constructor(varTokens, fxnTokens, relTokens, cstTokens) {
         this.varTokens = varTokens;
         this.fxnTokens = fxnTokens;
@@ -178,7 +178,7 @@ class FirstOrderParser {
     
 }
 
-class FirstOrderModel {
+export class FirstOrderModel {
     constructor(universe, cmap, fmap, rmap) {
         this.universe = universe;
         this.cmap = cmap;
@@ -270,6 +270,6 @@ class FirstOrderModel {
     }
 }
 
-varnames = ["y"].concat(Array.from(Array(99).keys()).map((n) => `x${n}`))
-fop = new FirstOrderParser(varnames, [], ['eq', 'R'], [])
+export var varnames = ["y"].concat(Array.from(Array(99).keys()).map((n) => `x${n}`))
+export var fop = new FirstOrderParser(varnames, [], ['eq', 'R'], [])
 

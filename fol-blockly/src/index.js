@@ -5,28 +5,61 @@
  */
 
 import * as Blockly from 'blockly';
+import {Network, DataSet} from 'vis-network';
 import {blocks} from './blocks/fol-blocks';
 import {folGenerator} from './generators/fol-generator';
 import {save, load} from './serialization';
 import {toolbox} from './toolbox';
+import * as FOL from './logic/fol.js';
+import * as MVC from './logic/mvc';
 import './index.css';
 
 // Register the blocks and generator with Blockly
 Blockly.common.defineBlocks(blocks);
 
 // Set up UI elements and inject Blockly
-const codeDiv = document.getElementById('generatedCode').firstChild;
-const outputDiv = document.getElementById('output');
+const graphDiv = document.getElementById('networkbox')
 const blocklyDiv = document.getElementById('blocklyDiv');
+var levelsList = document.getElementById("levels-list");
 const ws = Blockly.inject(blocklyDiv, {toolbox});
 
-// This function resets the code and output divs, shows the
-// generated code from the workspace, and evals the code.
-// In a real application, you probably shouldn't use `eval`.
+// Set up logic for Model Theory game
+var m = new MVC.Model()
+m.runRandomGraph(20, 0.1)
+var v = new MVC.View()
+v.visNodesList(20)
+v.visEdgesList(m.edglist)
+var c = new MVC.Controller(m, v)
+c.randomize()
+
+global.c = c;
+global.levels = MVC.levels;
+
+// Set up list of levels
+for (let n in MVC.levels) {
+    var level = MVC.levels[n];
+    var levelElt = document.createElement("li");
+    var clickable = document.createElement("a");
+    var levelMarker = document.createElement("a");
+    levelMarker.textContent = " ❓"
+    levelMarker.id = `level-marker-${n}`
+    clickable.textContent = level.name;
+    clickable.href = `javascript:c.runLevel(levels[${n}])`;
+    levelElt.appendChild(clickable);
+    levelElt.appendChild(levelMarker);
+    levelsList.appendChild(levelElt);
+}
+
+// This function resets the code and applies a predicate to the graph
 const runCode = () => {
   const code = folGenerator.workspaceToCode(ws);
-  outputDiv.innerText = code;
-  console.log(code);
+  // console.log(code);
+  try {
+    c.tryPredicate(code);
+  } catch (e) {
+    // console.log(e);
+    c.tryPredicate("~(eq(y,y))");
+  }
 };
 
 // Load the initial state from storage and run the code.

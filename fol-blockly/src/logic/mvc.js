@@ -1,4 +1,8 @@
-class Model {
+import * as FOL from './fol';
+// import * as Vis from 'vis-network';
+import { Network, DataSet } from 'vis-network/standalone';
+
+export class Model {
     constructor() {
         this.level = -1;
         this.size = 0;
@@ -6,7 +10,7 @@ class Model {
         this.targets = [];
         this.selected = [];
         var varnames = ["y"].concat(Array.from(Array(99).keys()).map((n) => `x${n}`));
-        this.fop = new FirstOrderParser(varnames, [], ['eq', 'R'], []);
+        this.fop = new FOL.FirstOrderParser(varnames, [], ['eq', 'R'], []);
         this.fom = undefined;
     }
 
@@ -20,7 +24,7 @@ class Model {
     fromEdgeList(n, edg) {
         this.size = n;
         let nodes = Array.from(Array(n).keys())
-        this.fom = new FirstOrderModel(
+        this.fom = new FOL.FirstOrderModel(
             nodes,
             {},
             {},
@@ -56,7 +60,7 @@ class Model {
     }
 }
 
-class View {
+export class View {
     constructor() {
         this.visNodes = undefined;
         this.visEdges = undefined;
@@ -80,7 +84,7 @@ class View {
                 borderWidth: 0 
             } 
         })
-        this.visNodes = new vis.DataSet(visNodes)
+        this.visNodes = new DataSet(visNodes)
     }
 
     
@@ -94,7 +98,7 @@ class View {
             else
                 visEdges.push({ from: e[0], to: e[1], width: 1, arrows: "to" })
         }
-        this.visEdges = new vis.DataSet(visEdges)
+        this.visEdges = new DataSet(visEdges)
     }
 
     setNodeColor(i, background, border) {
@@ -137,7 +141,7 @@ class View {
                 }
             }
         }
-        this.network = new vis.Network(document.getElementById('networkbox'), data, options);
+        this.network = new Network(document.getElementById('networkbox'), data, options);
     }
 
     styleNodes(special) {
@@ -154,7 +158,7 @@ class View {
 
 }
 
-class Controller {
+export class Controller {
     constructor(model, view) {
         this.model = model;
         this.view = view;
@@ -186,7 +190,7 @@ class Controller {
 
 }
 
-const levels = [
+export const levels = [
     {
         num: 0,
         name: "Two nodes",

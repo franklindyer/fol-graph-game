@@ -37,6 +37,10 @@ export const toolbox = {
     },
     {
       'kind': 'block',
+      'type': 'eq'
+    },
+    {
+      'kind': 'block',
       'type': 'quantifier'
     }
   ]

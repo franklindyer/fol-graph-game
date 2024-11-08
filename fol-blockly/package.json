@@ -24,6 +24,11 @@
     "webpack-dev-server": "^4.11.1"
   },
   "dependencies": {
-    "blockly": "^11.0.0"
+    "blockly": "^11.0.0",
+    "install": "^0.13.0",
+    "npm": "^10.9.0",
+    "vis-network": "^9.1.9",
+    "vis.js": "^1.1.0",
+    "visjs-network": "^4.24.11"
   }
 }
