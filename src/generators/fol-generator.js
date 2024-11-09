@@ -19,7 +19,7 @@ folGenerator.forBlock['points_to'] = function(block, generator) {
 };
 
 folGenerator.forBlock['eq'] = function(block, generator) {
-    return [`eq(${generator.valueToCode(block,"SOURCE",Order.ATOMIC)},${generator.valueToCode(block,"TARGET",Order.ATOMIC)})`, Order.ATOMIC];
+    return [`eq(${generator.valueToCode(block,"LHS",Order.ATOMIC)},${generator.valueToCode(block,"RHS",Order.ATOMIC)})`, Order.ATOMIC];
 };
 
 folGenerator.forBlock['binary_op'] = function(block, generator) {

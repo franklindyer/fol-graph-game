@@ -193,44 +193,72 @@ export class Controller {
 export const levels = [
     {
         num: 0,
-        name: "Two nodes",
+        name: "Life begins to happen",
         nodes: 2,
         edges: [[0,1]],
         target: [0]
     },
     {
         num: 1,
-        name: "Lonely node",
+        name: "Ten spoons of spinach",
         nodes: 5,
         edges: [[0,1],[1,0],[0,2],[2,0],[0,3],[3,0],[1,2],[2,1],[1,3],[3,1],[2,3],[3,2]],
         target: [4]
     },
     {
         num: 2,
-        name: "Lollipop",
+        name: "Emails open on my phone",
+        nodes: 7,
+        edges: [[0,1],[2,1],[3,6],[4,6],[5,6]],
+        target: [3,4,5]
+    },
+    {
+        num: 3,
+        name: "Cherry or rye",
         nodes: 7,
         edges: [[0,1],[1,0],[1,2],[2,1],[2,3],[3,2],[3,4],[4,3],[4,5],[5,4],[5,0],[0,5],[3,6],[6,3]],
         target: [0]
     },
     {
-        num: 3,
-        name: "Triangle square",
+        num: 4,
+        name: "Sweet in floral print",
         nodes: 7,
         edges: [[0,1],[1,2],[2,0],[3,4],[4,5],[5,6],[6,3]],
         target: [0,1,2]
     },
     {
-        num: 4,
-        name: "Taffy",
+        num: 5,
+        name: "Taqueria on the roof",
         nodes: 9,
         edges: [[0,1],[1,2],[2,3],[4,5],[5,6],[6,7],[7,8]],
         target: [3]
     },
     {
-        num: 5,
-        name: "Tree",
+        num: 6,
+        name: "Bomb in your Benz",
         nodes: 9,
         edges: [[0,1],[0,2],[1,3],[1,4],[2,5],[2,6],[6,7],[6,8]],
+        target: [5]
+    },
+    {
+        num: 7,
+        name: "Use more tongue",
+        nodes: 7,
+        edges: [[0,3],[3,0],[0,4],[4,0],[0,5],[5,0],[0,6],[6,0],[1,3],[3,1],[1,4],[4,1],[1,5],[5,1],[1,6],[6,1],[2,3],[3,2],[2,4],[4,2],[2,5],[5,2],[2,6],[6,2]],
+        target: [0,1,2]
+    },
+    {
+        num: 8,
+        name: "My bacon my oink",
+        nodes: 10,
+        edges: [[0,1],[1,0],[0,2],[2,0],[0,3],[3,0],[1,2],[2,1],[1,5],[5,1],[2,4],[4,2],[3,6],[6,3],[3,8],[8,3],[4,6],[6,4],[4,7],[7,4],[5,7],[7,5],[6,8],[8,6],[7,9],[9,7],[5,9],[9,5],[8,9],[9,8]],
+        target: [2,6,7]
+    },
+    {
+        num: 9,
+        name: "New movement for social improvement",
+        nodes: 12,
+        edges: [[0,1],[1,0],[0,5],[5,0],[0,6],[6,0],[1,2],[2,1],[1,3],[3,1],[2,4],[4,2],[2,8],[8,2],[3,4],[4,3],[3,7],[7,3],[4,8],[8,4],[5,6],[6,5],[5,7],[7,5],[6,10],[10,6],[7,9],[9,7],[8,11],[11,8],[9,10],[10,9],[9,11],[11,9],[10,11],[11,10]],
         target: [5]
     }
 ]
