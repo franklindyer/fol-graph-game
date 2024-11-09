@@ -24,7 +24,7 @@ export const blocks = Blockly.common.createBlockDefinitionsFromJsonArray([{
     }
   ],
   "output": "bool",
-  "colour": 230,
+  "colour": 190,
 },
 {
   "type": "not",
@@ -37,7 +37,7 @@ export const blocks = Blockly.common.createBlockDefinitionsFromJsonArray([{
     }
   ],
   "output": "bool",
-  "colour": 230
+  "colour": 190
 },
 {
   "type": "node",
@@ -48,14 +48,14 @@ export const blocks = Blockly.common.createBlockDefinitionsFromJsonArray([{
     "options": [["a","a"], ["b","b"], ["c","c"], ["d","d"], ["e","e"], ["f","f"], ["g","g"]] 
   }],
   "output": ["expr", "variable"],
-  "colour": 230
+  "colour": 45
 },
 {
   "type": "target_node",
   "message0": "🟢",
   "args0": [],
   "output": "expr",
-  "colour": 230
+  "colour": 45
 },
 {
   "type": "eq",
@@ -73,7 +73,7 @@ export const blocks = Blockly.common.createBlockDefinitionsFromJsonArray([{
     }
   ],
   "output": "bool",
-  "colour": 230,
+  "colour": 190,
   "inputsInline": true
 },
 {
@@ -92,7 +92,7 @@ export const blocks = Blockly.common.createBlockDefinitionsFromJsonArray([{
     }
   ],
   "output": "bool",
-  "colour": 230,
+  "colour": 190,
   "inputsInline": false
 },
 {
@@ -119,7 +119,7 @@ export const blocks = Blockly.common.createBlockDefinitionsFromJsonArray([{
     }
   ],
   "output": "bool",
-  "colour": 230,
+  "colour": 190,
   "inputsInline": false
 }
 ]);

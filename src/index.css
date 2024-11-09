@@ -44,3 +44,30 @@ code {
   height: 400px;
   border: 1px solid lightgray;
 }
+
+#levels-list {
+    padding: 5px;
+    margin: 5px;
+    overflow-y: scroll;
+}
+
+.level-entry:hover {
+    background-color: #dddddd;
+}
+
+.level-entry {
+    padding: 5px;
+    margin: 5px;
+    background-color: #eeeeee;
+    border-radius: 3px;
+    font-family: Menlo;
+    font-size: 14px;
+}
+
+.locked-level-entry {
+    color: #bbbbbb;
+}
+
+.level-icon {
+    float: right;
+}

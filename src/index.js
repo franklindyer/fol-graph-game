@@ -21,7 +21,19 @@ Blockly.common.defineBlocks(blocks);
 const graphDiv = document.getElementById('networkbox')
 const blocklyDiv = document.getElementById('blocklyDiv');
 var levelsList = document.getElementById("levels-list");
-const ws = Blockly.inject(blocklyDiv, {toolbox});
+const ws = Blockly.inject('blocklyDiv', {
+    toolbox: toolbox,
+    zoom: {
+        controls: true,
+        wheel: true,
+        startScale: 1.0,
+        maxScale: 1.0,
+        minScale: 0.3,
+        scaleSpeed: 1.2,
+        pinch: true
+    },
+    trashcan: true
+});
 
 // Set up logic for Model Theory game
 var m = new MVC.Model()
@@ -38,15 +50,18 @@ global.levels = MVC.levels;
 // Set up list of levels
 for (let n in MVC.levels) {
     var level = MVC.levels[n];
-    var levelElt = document.createElement("li");
-    var clickable = document.createElement("a");
+    var levelElt = document.createElement("div");
+    var levelLabel = document.createElement("a");
     var levelMarker = document.createElement("a");
-    levelMarker.textContent = " ❓"
+    levelMarker.textContent = "🔒"
     levelMarker.id = `level-marker-${n}`
-    clickable.textContent = level.name;
-    clickable.href = `javascript:c.runLevel(levels[${n}])`;
-    levelElt.appendChild(clickable);
+    levelMarker.classList.add("level-icon");
+    levelLabel.textContent = level.name;
+    levelElt.onclick = () => { c.runLevel(levels[n]); }
+    levelElt.appendChild(levelLabel);
     levelElt.appendChild(levelMarker);
+    levelElt.classList.add("level-entry");
+    levelElt.classList.add("locked-level-entry");
     levelsList.appendChild(levelElt);
 }
 
