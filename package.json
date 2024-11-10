@@ -27,6 +27,7 @@
     "blockly": "^11.0.0",
     "install": "^0.13.0",
     "npm": "^10.9.0",
+    "react-grid-layout": "^1.3.4",
     "vis-network": "^9.1.9",
     "vis.js": "^1.1.0",
     "visjs-network": "^4.24.11"

@@ -54,16 +54,18 @@ for (let n in MVC.levels) {
     var levelLabel = document.createElement("a");
     var levelMarker = document.createElement("a");
     levelMarker.textContent = "🔒"
-    levelMarker.id = `level-marker-${n}`
+    levelElt.id = `level-marker-${n}`
     levelMarker.classList.add("level-icon");
+    levelMarker.id = `level-icon-${n}`;
     levelLabel.textContent = level.name;
-    levelElt.onclick = () => { c.runLevel(levels[n]); }
+    levelElt.disabled = true;
     levelElt.appendChild(levelLabel);
     levelElt.appendChild(levelMarker);
     levelElt.classList.add("level-entry");
     levelElt.classList.add("locked-level-entry");
     levelsList.appendChild(levelElt);
 }
+MVC.activateLevel(c, 0);
 
 // This function resets the code and applies a predicate to the graph
 const runCode = () => {

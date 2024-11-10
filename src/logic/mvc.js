@@ -152,9 +152,16 @@ export class View {
     }
 
     markLevelCompleted(levelNum) {
-        var levelMarker = document.getElementById(`level-marker-${levelNum}`);
-        levelMarker.innerHTML = " ✅";
+        var levelMarker = document.getElementById(`level-icon-${levelNum}`);
+        levelMarker.textContent = "✔️";
     } 
+
+    markLevelUnlocked(levelNum) {
+        var levelMarker = document.getElementById(`level-marker-${levelNum}`);
+        var levelIcon = document.getElementById(`level-icon-${levelNum}`);
+        levelIcon.textContent = "";
+        levelMarker.style.color = "black";
+    }
 
 }
 
@@ -184,10 +191,21 @@ export class Controller {
         var sel = this.model.getSat(pred);
         this.view.highlightSelected(sel);
         var complete = this.model.level != -1 && sel.toString() === this.model.target.toString();
-        if (complete) this.view.markLevelCompleted(this.model.level);
+        if (complete) {
+            this.view.markLevelCompleted(this.model.level);
+            activateLevel(this, this.model.level+1);
+            this.view.markLevelUnlocked(this.model.level+1);
+        }
         return complete
     }
 
+}
+
+export function activateLevel(c, n) {
+    var levelElt = document.getElementById(`level-marker-${n}`);
+    if (levelElt !== undefined)
+        levelElt.onclick = () => { c.runLevel(levels[n]) }
+    c.view.markLevelUnlocked(n);
 }
 
 export const levels = [
@@ -214,7 +232,7 @@ export const levels = [
     },
     {
         num: 3,
-        name: "Cherry or rye",
+        name: "Bottles in the club",
         nodes: 7,
         edges: [[0,1],[1,0],[1,2],[2,1],[2,3],[3,2],[3,4],[4,3],[4,5],[5,4],[5,0],[0,5],[3,6],[6,3]],
         target: [0]
